@@ -2,10 +2,8 @@
 */
 import axios from 'axios' 
 
-    export  const apiUser = async ()=>{
-// --------------------------------------------
-     let res = await axios.get('http://localhost:8080')
-     let {data} = res
-     console.log('primer filtro',data);
-    return data;
+    export const getUsuario = async () =>{
+        let res = await axios.get('http://localhost:8080');
+        let data = res
+        return data
     }

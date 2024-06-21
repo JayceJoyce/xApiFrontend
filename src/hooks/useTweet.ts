@@ -1,24 +1,15 @@
 import { useState } from 'react'
 import { UserDTO } from '../models/UserDTO.model'
-import { apiUser } from '../api/GetTweet.ts'
+import { getUsuario } from '../api/GetTweet.ts'
 
 export const UseTweet  = ()=>{
-    let set = []
-    set['id'] = '1528519399036145668'
-    set['name'] = 'ElsaBananasCheese'
-    set['username'] = 'BananasElsa'
-   // const [user, setUser] = useState<UserDTO[]>()
-   const [user, setUser] = useState<boolean>(false)
+   const [user, setUser] = useState<UserDTO[]>()
   
-    const thisUser = async ()=>{ 
-        // --------------------------------------------
-        
-       await apiUser().then((res) => {
-        setUser(true)
-        console.log('segundo filtro',res,user)
-           
-        }).then(()=>{ console.log('tercer',user)})
-    }
+   const thisUser = async() =>{
+    await getUsuario().then((res)=>{return res.data}).then((data)=>{setUser([data])})
+    
+    return true;
+}
 
-    return {thisUser,user,setUser}
+    return {thisUser,user}
 }

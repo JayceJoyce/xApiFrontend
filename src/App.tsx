@@ -5,13 +5,16 @@ import { Button } from 'react-bootstrap';
 import {useEffect}  from 'react'
 import './App.css';
 import { UseTweet } from './hooks/useTweet.ts';
- 
-function App() {
+
+ function App() {
   let {thisUser,user} = UseTweet()
- 
+
+
   useEffect(() => {
     thisUser()
   }, [])
+  
+  
  
   return (
     <div className="col-12 ">
@@ -27,8 +30,7 @@ function App() {
             </thead>
             <tbody>
               <tr>
-               {/*  {
-                  user?.map((e)=>{
+               { user?.map((e)=>{
                     let {id,name,username} = e
                     return(
                      <>
@@ -38,7 +40,7 @@ function App() {
                      </>
                     )
                   })
-                } */}
+                }
                
               </tr>
             </tbody>
