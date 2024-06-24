@@ -7,7 +7,7 @@ import './App.css';
 import { UseTweet } from './hooks/useTweet.ts';
 
  function App() {
-  let {thisUser,user} = UseTweet()
+  let {thisUser,user,tweetThisUser,tweet, setTweet} = UseTweet()
 
 
   useEffect(() => {
@@ -49,8 +49,8 @@ import { UseTweet } from './hooks/useTweet.ts';
       </div>
       <div className="row d-flex justify-content-center">
         <div className="col-11 mt-5">
-          <input className="form-select-lg mx-2" type="text" placeholder="Escribe aquí un tweet..."/>
-          <Button variant="secondary">Enviar</Button>{' '}
+          <input onChange={(e)=>{setTweet(e.target.value)}} className="form-select-lg mx-2" type="text" placeholder="Escribe aquí un tweet..."/>
+          <Button variant="secondary" onClick={()=>{tweetThisUser(tweet);}}>Enviar</Button>{' '}
         </div>
       </div>
     </div>
