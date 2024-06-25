@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { UserDTO } from '../models/UserDTO.model'
-import { getUsuario } from '../api/GetTweet.ts'
-import { setNewTweet } from '../api/PostTweet.ts'
+import { getUsuario } from '../api/GetTweet'
+import { setNewTweet } from '../api/PostTweet'
 
 export const UseTweet  = () => {
    const [user, setUser] = useState<UserDTO[]>()

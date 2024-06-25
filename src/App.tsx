@@ -4,10 +4,10 @@ import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 import {useEffect}  from 'react'
 import './App.css';
-import { UseTweet } from './hooks/useTweet.ts';
+import { UseTweet } from './hooks/useTweet';
 import { TwitterTimelineEmbed,TwitterTweetEmbed } from 'react-twitter-embed';
-import SweetAlert2 from 'react-sweetalert2';
-import withReactContent from 'sweetalert2-react-content'
+import ModalTweet from './components/Modal';
+import Modal from 'react-bootstrap/Modal';
 
  function App() {
   let {thisUser,user,tweetThisUser,tweet, setTweet,currentTweet,showTweet, setShowTweet} = UseTweet()
@@ -74,12 +74,20 @@ import withReactContent from 'sweetalert2-react-content'
           </div>
         </div>
       </div>
-      <SweetAlert2
-        show={showTweet}
-        title=""
-        text={<TwitterTweetEmbed tweetId={currentTweet} />}
-        onConfirm={() => setShowTweet(false)}
-      />
+    {/*    ts-expect-error-<ModalTweet showTweet={showTweet} setShowTweet={setShowTweet()}currentTweet={currentTweet} /> */}
+
+        <Modal show={showTweet} onHide={() => setShowTweet(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title></Modal.Title>
+          </Modal.Header>
+          <Modal.Body><TwitterTweetEmbed tweetId={currentTweet} /></Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowTweet(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+      </Modal>
+      
     </div>
   );
 }
