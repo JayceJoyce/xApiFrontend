@@ -9,6 +9,9 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   }, */
   // Cargador de transformación para archivos JS/JSX
+  Headers:{
+    'X-Frame-Options': 'sameorigin'
+  },
   module: {  
     noParse: /\/node_modules\/process\//,
     rules: []  

@@ -2,26 +2,30 @@ import React from 'react';
 import { Route, Routes} from 'react-router-dom';
 import rutas from './routes/config';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Container } from 'react-bootstrap';
 import './styles/index.scss';
-
 import Menu from './pages/layout/menu';
+import Header from './pages/layout/header';
+import { Navigate } from "react-router-dom";
 
  function App() {
 
   return (
-    <div className="col-12 ">
-      <div className="row d-flex justify-content-center">
-        <div className="col-10 mt-5">
-         <Menu />
+      <Container fluid className="col-12">
+        <Header />
+        <div className="row">
+        <Menu />
+        <div className="col-11 bgGray">
+            {
+              <Routes>        
+                { rutas.map( (ruta) =>
+                <Route key={ruta.path} path={ruta.path} element={<ruta.component />} />
+                ) }
+              </Routes> 
+            }
+          </div>
         </div>
-      </div>
-      <Routes>        
-        { rutas.map( (ruta) =>
-            <Route key={ruta.path} path={ruta.path} element={<ruta.component />} />
-        ) }
-      </Routes> 
-      
-    </div>
+      </Container>
   );
 }
  

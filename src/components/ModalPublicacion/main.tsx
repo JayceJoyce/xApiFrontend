@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
-import { UseTweet } from '../hooks/useTweet';
+import { UseTweet } from '../../hooks/useTweet';
 import  { TwitterTweetEmbed } from 'react-twitter-embed';
 
 const ModalTweet = (showTweet:boolean, setShowTweet:any,currentTweet:string) => {
