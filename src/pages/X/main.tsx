@@ -25,14 +25,14 @@ const X = ()=> {
                     <div className="col-8">
                         {
                             user?.map((e)=>{
-                            let {id} = e
-                            return(
-                                <TwitterTimelineEmbed 
-                                    sourceType="profile" 
-                                    userId={id} 
-                                    options={{height: 400}} 
-                                />
-                            )
+                                let {id} = e
+                                return(
+                                    <TwitterTimelineEmbed 
+                                        sourceType="profile" 
+                                        userId={id} 
+                                        options={{height: 400}} 
+                                    />
+                                )
                             })
                         }
                     </div>

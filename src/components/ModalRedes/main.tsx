@@ -2,10 +2,12 @@ import { base_url } from '../../constants';
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
 import { useFacebook } from '../../hooks/useFacebookLogin';
+import { useTweet } from '../../hooks/useTwitterLogin';
 
 const ModalRedes= (modalProps:any) => {
     let {show, setShow} = modalProps
     let {loginClick} =useFacebook();
+    let {loginTwitter} = useTweet()
   return(
     <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>

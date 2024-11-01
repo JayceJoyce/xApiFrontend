@@ -23,6 +23,7 @@
     "react-scripts": "5.0.1",
     "react-sweetalert2": "^0.6.0",
     "react-twitter-embed": "^4.0.4",
+    "react-twitter-login": "^1.5.0",
     "sass": "^1.77.6",
     "stream": "npm:stream-browserify",
     "sweetalert2": "^11.12.0",
