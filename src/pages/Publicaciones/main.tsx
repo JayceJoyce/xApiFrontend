@@ -6,9 +6,10 @@ import { UseTweet } from '../../hooks/useTweet';
 import { Suspense,lazy } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 const Post = lazy(() => import('../../components/Post/main'));
-const TableStriped= lazy(() => import('../../components/TableStriped'));
+const PostPreview = lazy(() => import('../../components/PostPreview/main'));
+const AccountSelect = lazy(() => import('../../components/AccountSelect/main'));
 
-const X = ()=> {
+const Publicaciones = ()=> {
     let {thisUser,user,tweetThisUser,tweet, setTweet,currentTweet,showTweet, setShowTweet} = UseTweet()
 
     useEffect(() => {
@@ -17,39 +18,29 @@ const X = ()=> {
 
     return(
         <> 
-            <ErrorBoundary fallback={<h6>Ha ocurrido un error.</h6>}>
-                <Suspense fallback={<h6>Loading...</h6>}>
-                    <TableStriped userInfo={{userInfo:user}} />
-                </Suspense>
-            </ErrorBoundary>
+        <h2 className="mt-5">Crea una publicación</h2>
             <div className="row d-flex justify-content-center">
-                <div className="col-10 mt-5">
+                <div className="col-10 my-5">
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-6">
                     <ErrorBoundary fallback={<h6>Ha ocurrido un error.</h6>}>
                         <Suspense fallback={<h6>Loading...</h6>}>
-                            
+                            <AccountSelect />
                         </Suspense>
                     </ErrorBoundary>
-                   
+                    <ErrorBoundary fallback={<h6>Ha ocurrido un error.</h6>}>
+                        <Suspense fallback={<h6>Loading...</h6>}>
+                            <Post onChangeEvent={(content:any) => setTweet(content)} />
+                        </Suspense>
+                    </ErrorBoundary>
+                    <Button variant="secondary" className="my-4" onClick={()=>{tweetThisUser(tweet).then(()=>setShowTweet(true));}}>Enviar</Button>{' '}
                     </div>
-                    <div className="col-8">
-                        {
-                            user?.map((e)=>{
-                                let {id} = e
-                                return(
-                                    <ErrorBoundary fallback={<h6>Ha ocurrido un error.</h6>}>
-                                        <Suspense fallback={<h6>Loading...</h6>}>
-                                            <TwitterTimelineEmbed 
-                                                sourceType="profile" 
-                                                userId={id} 
-                                                options={{height: 400}} 
-                                            />
-                                        </Suspense>
-                                    </ErrorBoundary>
-                                )
-                            })
-                        }
+                    <div className="col-6 justify-content-center d-flex">
+                    <ErrorBoundary fallback={<h6>Ha ocurrido un error.</h6>}>
+                        <Suspense fallback={<h6>Loading...</h6>}>
+                            <PostPreview/>
+                        </Suspense>
+                    </ErrorBoundary>
                     </div>
                 </div>
                 </div>
@@ -73,4 +64,4 @@ const X = ()=> {
     )
 }
 
-export default X;
+export default Publicaciones;

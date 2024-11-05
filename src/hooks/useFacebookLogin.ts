@@ -18,15 +18,12 @@ export const useFacebook = () =>{
                 let {userID} = authResponse;
                 setIsLogged(true)
                 //await setUserInfo(userID);
-                console.log(response,'first response',userID);
                 await callProfilePic(userID)
                 await callUserName(userID)
             }else{
                 setIsLogged(false);
             }
             return true;
-              console.log(credentials,'credentialsss')
-         
         });
     }
     const loginClick = async () =>{

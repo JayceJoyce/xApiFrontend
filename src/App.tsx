@@ -11,8 +11,7 @@ import { Navigate } from "react-router-dom";
  function App() {
 
   return (
-      <Container fluid className="col-12">
-        <Header />
+      <Container fluid className="col-12 mt-1">
         <div className="row">
         <Menu />
         <div className="col-11 bgGray">
