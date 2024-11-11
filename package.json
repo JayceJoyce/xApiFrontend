@@ -4,6 +4,7 @@
   "private": true,
   "parser": "babel-eslint",
   "dependencies": {
+    "@amraneze/react-instagram-login": "^4.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -22,6 +23,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "crypto": "npm:crypto-browserify",
+    "instagram-web-api": "^2.2.2",
     "oauth-1.0a": "^2.2.6",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.3",
@@ -31,6 +33,7 @@
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.2",
+    "react-social-media-embed": "^2.5.17",
     "react-sweetalert2": "^0.6.0",
     "react-twitter-embed": "^4.0.4",
     "react-twitter-login": "^1.5.0",

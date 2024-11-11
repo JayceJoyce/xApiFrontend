@@ -56,7 +56,10 @@
     letter-spacing: 0.1em;
     transform: scale(1);
   }
-  
+  .smallPost{
+    line-height: 0.1 !important;
+  }
+
   .noStyleBtn{
     border:none;
     background-color: transparent;

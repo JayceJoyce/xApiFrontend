@@ -9,7 +9,7 @@ const Post = lazy(() => import('../../components/Post/main'));
 const TableStriped= lazy(() => import('../../components/TableStriped'));
 
 const X = ()=> {
-    let {thisUser,user,tweetThisUser,tweet, setTweet,currentTweet,showTweet, setShowTweet} = UseTweet()
+    let {thisUser,user,tweet, setTweet} = UseTweet()
 
     useEffect(() => {
         thisUser()
@@ -55,20 +55,6 @@ const X = ()=> {
                 </div>
             </div>
             {/*    ts-expect-error-<ModalTweet showTweet={showTweet} setShowTweet={setShowTweet()}currentTweet={currentTweet} /> */}
-
-            <Modal show={showTweet} onHide={() => setShowTweet(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title></Modal.Title>
-                </Modal.Header>
-                    <Modal.Body>
-                        <TwitterTweetEmbed tweetId={currentTweet} />
-                    </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowTweet(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </>
     )
 }
