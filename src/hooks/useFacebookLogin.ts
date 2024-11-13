@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { getApi } from "../api/GetFacebook";
 import { META_LOGIN_SCOPE } from "../constants";
 import { accountsDTO } from "../models/facebookDTO.model";
+import { InstagramBusinessDTO } from "../models/InstagramDTO.model";
+import Instagram from "../pages/Instagram/main";
 
 
 export const useFacebook = () =>{
@@ -12,6 +14,7 @@ export const useFacebook = () =>{
     const [profilePic,setProfilePic] = useState<any>("")
     const [accounts, setAccounts] = useState<accountsDTO[]>([])
     const [accountsProfilePic, setaccountsProfilePic] = useState<any>("")
+    const [instagramAccounts, setInstagramAccounts] = useState<InstagramBusinessDTO[]>([])
 
 
     const checkLoginState = ()=> {
@@ -65,7 +68,6 @@ export const useFacebook = () =>{
                 Object.keys(data).map(async (eKey:any)=>{
                     let {name,id,access_token} = data[eKey]
                     await assembleAllManagedAccountInfo(name,id,access_token)
-                   
                 })
             }
           );
@@ -80,8 +82,34 @@ export const useFacebook = () =>{
                 let {url} = data;//,height,width 
                 let newAccount ={'id':accountId,'token':accessToken,'name':name,'picture':url}
                 setAccounts(accounts=>[...accounts,newAccount])
+                callInstagramAccounts(accountId);
             }
           );
+    }
+    const callInstagramAccounts = async (facebookLinkedPageId)=>{
+        window.FB.api(
+            `/${facebookLinkedPageId}?fields=instagram_business_account`,
+            "get",
+            {},
+            function(response:any){
+                if(Object.keys(response).includes('instagram_business_account')){
+                    let {instagram_business_account} = response
+                    let {id} = instagram_business_account
+                    window.FB.api(
+                        `/${id}?fields=id,name,username,profile_picture_url`,
+                        "get",
+                        {},
+                        function(response:any){
+                            if(Object.keys(response).includes('username')){
+                                let {id,name,username,profile_picture_url} = response
+                                let newInstagramAccount = {'id':id,'name':name,'username':username,'profile_picture_url':profile_picture_url}
+                                 setInstagramAccounts(instagramAccounts=>[...instagramAccounts,newInstagramAccount])
+                            }
+                        }
+                    )
+                }
+            }
+        )
     }
     const callUserName = async (userID:string)=>{
           // await getApi( `/${userID}?redirect=false`).then((res)=>console.log(res,'new')) 
@@ -111,6 +139,6 @@ export const useFacebook = () =>{
           );
     }
     return{
-        isLogged,credentials,checkLoginState,loginClick,logoutClick,user,profilePic,accounts
+        isLogged,credentials,checkLoginState,loginClick,logoutClick,user,profilePic,accounts,instagramAccounts
     }
 }

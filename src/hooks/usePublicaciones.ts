@@ -22,13 +22,17 @@ export const usePublicaciones = () =>{
                 case "twitter":
                     tweetThisUser(message).then(()=>setShowTweet(true))
                 break;
-                case "instagram":
-                    ventana("","De momento no se encuentra implementada esta funcionalidad.",'error')
-                break;
+              /*   case "instagram":
+                    publicToInstagram(destination,message).then(()=>setShowTweet(true));
+                    //ventana("","De momento no se encuentra implementada esta funcionalidad.",'error')
+                break; */
             
                 default:
-                    publicToFbPage(destination,message).then(()=>setShowTweet(true));
-                    break;
+                    Object.keys(destination).includes('token')
+                    ? publicToFbPage(destination,message)
+                    : publicToInstagram(destination,message)
+                    .then(()=>setShowTweet(true));
+                break;
             }
           }else{
             ventana("Lo sentimos,","Para realizar una publicación debe de ingresar un contenido y una cuenta destino.",'info')
@@ -51,19 +55,39 @@ export const usePublicaciones = () =>{
             "post",
             packageToSend,
             function(response:any) {
-                console.log(response,'response from published')
                 if(response) getRecentlyPublished(id,token)
             }
           )
     }
-    const getRecentlyPublished = async (pageId:string,token:string) =>{
+    const publicToInstagram= async (pageInfo:any,content:string)=>{
+        let {id} = pageInfo
+           let packageToSend = {"caption":content,"published":true,"image_url":"https://www.te.gob.mx/media/themes/tepjfv3/img/bg-Buscador.jpg"}
+           window.FB.api(
+               `/${id}/media`,
+               "post",
+               packageToSend,
+               function(response:any) {
+                if(Object.keys(response).includes('id')){
+                    let containerId = response.id
+                    window.FB.api(
+                        `/${id}/media_publish`,
+                        "post",
+                        {"creation_id":containerId},
+                        function(response:any) {
+                            //asignar el id o la url de lo que se acaba de publicar
+                        }
+                    )
+                }
+               }
+             )
+       }
+    const getRecentlyPublished = async (pageId:string,token:string) => {
         window.FB.api(
             `/${pageId}/feed?fields=permalink_url&access_token=${token}`,
             "get",
             {},
             function(response:any) {
                 let {data} = response
-                console.log(data,'response from published')
                 setRecentlyPublished(data)
                 Object.keys(data).map((eKey)=>{
                     let {permalink_url} = data[eKey]
